@@ -2,10 +2,9 @@
 
 # Kush Ahuja — Portfolio
 
-A dark, bento-grid personal site that reads like a developer command center rather than a
-traditional portfolio.
+Dark, editorial portfolio and build-in-public blog for [thekush.codes](https://www.thekush.codes).
 
-**Next.js 15 · React 19 · TypeScript · Tailwind CSS · Framer Motion · shadcn/ui · Lucide**
+**Next.js 15 · React 19 · TypeScript · Tailwind CSS · Framer Motion 13**
 
 </div>
 
@@ -16,173 +15,75 @@ traditional portfolio.
 ```bash
 npm install
 npm run dev          # http://localhost:3000
-```
-
-```bash
-npm run build        # production build
-npm run start        # serve the build
+npm run build        # production build, every route prerendered
 npm run typecheck    # tsc --noEmit
 ```
 
-Requires Node 18.18+. The first run downloads Inter, Space Grotesk and JetBrains Mono once and
-self-hosts them — no runtime request to Google.
+## Where things live
 
----
+All copy is data. You never need to touch a component to change text.
 
-## Before you deploy — 4 things to replace
-
-All of it lives in `data/`, so you never touch a component.
-
-| What | Where |
+| What | File |
 |---|---|
-| Social URLs | `data/site.ts` → `site.socials` |
-| Live domain | `data/site.ts` → `site.url` (drives canonical, OG tags, sitemap) |
-| Resume PDF | drop it at `public/kush-ahuja-resume.pdf` |
-| Profile photo | drop a square image at `public/avatar.png` — falls back to a "KA" monogram |
+| Name, email, domain, one-line bio, socials, nav | `data/site.ts` |
+| Projects (featured cards + "More builds" list) | `data/projects.ts` |
+| Work history, education | `data/experience.ts` |
+| Services cards, FAQ | `data/services.ts` |
+| Blog posts ("Building agents-hub" series) | `data/posts.ts` |
+| Photos | `public/kush/` (hero cut-out, portrait, avatar) |
+| Live-site screenshots used as project covers | `public/projects/` |
 
-Optional: add `demo` / `repo` URLs to entries in `data/projects.ts` and the project rows link out
-automatically instead of pointing at the contact card.
+A project with `image` shows its screenshot. Without one it gets a code-drawn cover from
+`components/ui/project-art.tsx` (set `art`).
 
----
-
-## Layout
-
-The page is one column of bento panels inside a 1120px shell:
+## Pages
 
 ```
-Navbar            sticky, blurs on scroll
-Hero              split — copy + identity card, command bar underneath
-About             intro + four capability tiles
-Experience │ Projects    side by side on large screens
-Tech Stack        tabbed, seven categories
-Stats             six animated counters
-Writing           three post cards
-Activity row      CTA · latest commit · GitHub heatmap · currently building
-Footer
+/                    Hero · Marquee · Work · Statement · Services · About · Writing · FAQ
+/blog                All posts
+/blog/[slug]         Post, with reading progress, prev/next and BlogPosting JSON-LD
+/blog/rss.xml        RSS feed
+/llms.txt            Plain-text summary for AI answer engines, built from the same data
+/opengraph-image     Generated share images (home + one per post)
+/sitemap.xml · /robots.txt
 ```
-
----
 
 ## Design tokens
 
-Dark by default, with a working light theme behind the moon toggle. Colours are declared once as
-raw RGB channels in `app/globals.css` so Tailwind's opacity modifiers (`bg-accent/10`) still work
-and the whole palette can be swapped by toggling one class on `<html>`.
+Palette after [ruchitdesigns.framer.website](https://ruchitdesigns.framer.website/). Dark only.
+Declared once as RGB channels in `app/globals.css`, so Tailwind opacity modifiers work.
 
-| Purpose | Token | Dark |
+| Token | Hex | Use |
 |---|---|---|
-| Background | `bg-bg` | `#09090B` |
-| Surface (panel) | `bg-surface` | `#111113` |
-| Card | `bg-card` | `#18181B` |
-| Glass | `.glass` | `rgba(255,255,255,0.05)` |
-| Border | — | `rgba(255,255,255,0.08)` |
-| Divider | `bg-divider` | `#27272A` |
-| Primary text | `text-fg` | `#FAFAFA` |
-| Secondary text | `text-fg2` | `#A1A1AA` |
-| Muted text | `text-fg3` | `#71717A` |
-| Accent | `text-accent` | `#4F8CFF` |
-| Accent hover | `text-accent-hover` | `#6EA8FF` |
-| Success | `text-success` | `#22C55E` |
-| Warning | `text-warning` | `#F59E0B` |
-| Error | `text-danger` | `#EF4444` |
-| Info | `text-info` | `#38BDF8` |
+| `bg` | `#141316` | Page |
+| `surface` / `raised` | `#1C1B1F` / `#242328` | Cards, hover |
+| `fg` / `fg2` / `fg3` | `#F7F7F7` / `#B8B8B8` / `#828282` | Text |
+| `accent` | `#EA0044` | Fills and display type (white on it: 4.6:1) |
+| `accent-text` | `#FF3D6E` | Small crimson text on dark (5.4:1) |
 
-Component classes in `globals.css`: `.panel`, `.tile`, `.glass`, `.sheen` (luminous top hairline),
-`.glow-ring` (animated conic border), `.nav-link`, `.hairline`, `.noise`, `.text-accent-gradient`.
-
-Type: **Space Grotesk** headings, **Inter** body, **JetBrains Mono** for labels and code.
-
----
+Type: **Space Grotesk** display, **Geist** body, **Geist Mono** labels, **Instrument Serif** italic
+for the one cycling accent word. All self-hosted by `next/font`.
 
 ## Motion
 
-Timings live in `lib/motion.ts` — one easing curve, `cubic-bezier(0.22, 1, 0.36, 1)`, and
-durations in the 0.5–0.8s range so the whole site moves like a single object.
+Rules from the `design-engineering` skill. Curves live in `lib/motion.ts`: expo out for
+entrances, quart out for hovers, in-out for state travel. Only `transform`, `opacity`,
+`clip-path` and small blurs are animated.
 
 | Effect | File |
 |---|---|
-| Scroll reveal + stagger | `components/ui/reveal.tsx` |
-| Magnetic buttons | `components/ui/magnetic.tsx` |
-| Mouse parallax | `hooks/use-mouse-parallax.ts` |
-| Drifting orbs, grid, dust | `components/effects/background.tsx` |
-| Custom cursor + glow | `components/effects/cursor.tsx` |
-| Scroll progress bar | `components/effects/scroll-progress.tsx` |
-| Timeline draw-on-scroll | `components/sections/experience.tsx` |
-| Sliding tab underline | `components/sections/tech-stack.tsx` (`layoutId`) |
-| Counters | `components/ui/animated-counter.tsx` |
-| Theme icon morph | `components/ui/theme-toggle.tsx` |
+| Letter mask reveal, scroll parallax | `components/sections/hero.tsx` |
+| Word-by-word heading reveal | `components/ui/split-heading.tsx` |
+| Clip-path card reveal, cursor "Visit" bubble, hover preview list | `components/sections/work.tsx` |
+| Scroll-linked word highlight | `components/sections/statement.tsx` |
+| Sticky stacking service cards | `components/sections/services.tsx` |
+| Cross-blur word cycling | `components/ui/cycle-word.tsx` |
+| Morphing menu glyph, pill that grows into the menu | `components/layout/nav.tsx` |
+| Letters rising out of the footer edge | `components/layout/wordmark.tsx` |
 
-Every one checks `prefers-reduced-motion` and degrades to a static state.
-
----
-
-## Keyboard
-
-| Key | Action |
-|---|---|
-| `⌘K` / `Ctrl+K` | Toggle the command palette |
-| `/` | Open it (when not typing in a field) |
-| `↑` `↓` `↵` | Navigate and run |
-| `Esc` | Close |
-| `Tab` from load | Reveals "Skip to content" |
-
----
-
-## Structure
-
-```
-app/
-├── layout.tsx        fonts, metadata, JSON-LD, theme script, bento shell  (server)
-├── page.tsx          section order                                        (server)
-├── globals.css       tokens + panel/tile/glass utilities
-├── not-found.tsx · sitemap.ts · robots.ts · icon.png
-
-components/
-├── ui/               panel, button, badge, reveal, magnetic, counter,
-│                     dialog, tech-tile, theme-toggle, section-rail
-├── effects/          background, cursor, scroll-progress
-├── layout/           navbar, footer, command-palette, site-chrome
-└── sections/         hero, profile-card, command-bar, about, experience,
-                      projects, tech-stack, stats, blog, activity-row
-
-data/    every piece of copy
-hooks/   use-mounted · use-media-query · use-scroll-spy · use-mouse-parallax
-lib/     utils (cn, seeded PRNG) · motion variants · tone map · command events
-types/   shared TypeScript types
-```
-
-**Server vs client.** `layout.tsx` and `page.tsx` are server components. Only interactive leaves
-carry `'use client'`. The command palette is opened through a tiny event bus
-(`lib/command-events.ts`) rather than lifted state, which is what keeps the page tree on the server.
-
----
-
-## Implementation notes
-
-**No `Math.random()` during render.** The floating dust and the GitHub heatmap look random but
-come from a seeded PRNG (`seededRandom` in `lib/utils.ts`), so server and client emit identical
-markup and React never throws a hydration mismatch.
-
-**No theme flash.** An inline script in `<head>` applies the saved theme before first paint.
-
-**Placeholder data, clearly marked.** `data/activity.ts` holds the latest-commit and heatmap
-values — swap them for the GitHub API when you want live numbers. Everything else is real.
-
-**Tech tiles are tinted monograms**, not vendor logos, so there are no third-party image assets
-or licensing questions.
-
----
+`prefers-reduced-motion` keeps opacity fades and drops travel, blur, parallax and loops.
 
 ## Deploy
 
-```bash
-npm i -g vercel
-vercel --prod
-```
-
-Or push to GitHub and import at [vercel.com/new](https://vercel.com/new) — Next.js is
-auto-detected, no configuration needed. Afterwards set `site.url` in `data/site.ts` to your real
-domain so canonical URLs, Open Graph tags and `sitemap.xml` point to the right place.
-
-The app is fully static (`next build` prerenders every route), so any Node host or a
-`node:20-alpine` container works too.
+Push to GitHub and import in Vercel, or `vercel --prod`. `site.url` in `data/site.ts` must stay
+`https://www.thekush.codes`: it drives canonical URLs, Open Graph, the sitemap and `llms.txt`.

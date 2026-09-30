@@ -1,50 +1,60 @@
-import { Github, Linkedin, Mail, Twitter } from 'lucide-react';
-import type { NavLink, SocialLink } from '@/types';
+import type { NavLink, Social } from '@/types';
 
 export const site = {
   name: 'Kush Ahuja',
   firstName: 'Kush',
   lastName: 'Ahuja',
-  initials: 'KA',
-  badge: 'AI Engineer & Founder',
-  headline: 'I build AI products and scalable systems that solve real world problems.',
   role: 'AI Engineer',
+  /** One fixed sentence, used everywhere, so search engines and AI answers repeat it word for word. */
+  oneLiner:
+    'Kush Ahuja is an AI engineer in Gurugram, India, founder of agents-hub (AI agents for Gmail, Calendar and Tasks) and CTO of BuildYour.Company.',
+  headline: 'I build AI agents that do real work: in your Gmail, your calendar and your Drive.',
   location: 'Gurugram, India',
-  experience: '2+ Years',
-  focus: 'AI • Backend • Cloud',
-  availability: 'Available for work',
   email: 'ahujakush07@gmail.com',
+  // www is the canonical host: the apex redirects to it.
+  url: 'https://www.thekush.codes',
   resume: '/kush-ahuja-resume.pdf',
-  url: 'https://kushahuja.dev',
-  // Replace with your real profiles before deploying.
-  socials: {
-    github: 'https://github.com/ahujakush',
-    linkedin: 'https://linkedin.com/in/ahujakush',
-    twitter: 'https://x.com/ahujakush',
-  },
+  availability: 'Open to freelance and full-time AI work',
 } as const;
 
+export const socials: Social[] = [
+  { label: 'LinkedIn', handle: 'ahujakush', href: 'https://linkedin.com/in/ahujakush', icon: 'linkedin' },
+  { label: 'GitHub', handle: 'ahujakush', href: 'https://github.com/ahujakush', icon: 'github' },
+  { label: 'Instagram', handle: 'kush_ahuja_12', href: 'https://www.instagram.com/kush_ahuja_12/', icon: 'instagram' },
+  { label: 'X', handle: 'ahujakush', href: 'https://x.com/ahujakush', icon: 'x' },
+];
+
 export const navLinks: NavLink[] = [
-  { label: 'About', href: '#about' },
-  { label: 'Experience', href: '#experience' },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Blog', href: '#blog' },
-  { label: 'Contact', href: '#contact' },
+  { label: 'Work', href: '/#work' },
+  { label: 'Services', href: '/#services' },
+  { label: 'About', href: '/#about' },
+  { label: 'Writing', href: '/blog' },
+  { label: 'Contact', href: '/#contact' },
 ];
 
-export const socialLinks: SocialLink[] = [
-  { label: 'GitHub', href: site.socials.github, icon: Github },
-  { label: 'LinkedIn', href: site.socials.linkedin, icon: Linkedin },
-  { label: 'X', href: site.socials.twitter, icon: Twitter },
-  { label: 'Email', href: `mailto:${site.email}`, icon: Mail },
+/** Names in the logo strip under the hero. Plain text, no borrowed logos. */
+export const workedWith = [
+  'BuildYour.Company',
+  'Gold Quotient LLP',
+  'TechnGlobal',
+  'SGT University',
+  'agents-hub',
+  'Kairo',
 ];
 
-/** Small logo chips along the bottom of the hero profile card. */
-export const profileStack = [
-  { name: 'Python', short: 'Py', color: '#4F8CFF' },
-  { name: 'React', short: 'Re', color: '#38BDF8' },
-  { name: 'Next.js', short: 'N', color: '#FAFAFA' },
-  { name: 'Node.js', short: 'No', color: '#22C55E' },
-  { name: 'Cloud', short: 'Cl', color: '#A1A1AA' },
+/** Tools row in the Services section. */
+export const tools = [
+  'TypeScript',
+  'Python',
+  'Next.js',
+  'React Native',
+  'Azure OpenAI',
+  'LangGraph',
+  'Supabase',
+  'Postgres',
+  'FastAPI',
+  'Railway',
+  'Vercel',
+  'Figma',
+  'Claude Code',
 ];

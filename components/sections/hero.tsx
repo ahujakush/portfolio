@@ -1,116 +1,160 @@
 'use client';
 
-import { motion } from 'framer-motion';
-import { ArrowUpRight, Download } from 'lucide-react';
-import { site, socialLinks } from '@/data/site';
-import { Button } from '@/components/ui/button';
-import { Magnetic } from '@/components/ui/magnetic';
-import { ProfileCard } from '@/components/sections/profile-card';
-import { CommandBar } from '@/components/sections/command-bar';
-import { SectionRail } from '@/components/ui/section-rail';
-import { fadeUp, stagger } from '@/lib/motion';
+import { motion, useReducedMotion, useScroll, useTransform, type Variants } from 'framer-motion';
+import Image from 'next/image';
+import { useRef } from 'react';
+import { site } from '@/data/site';
+import { EASE_EXPO } from '@/lib/motion';
+import { useIntroDone } from '@/lib/intro';
+import { ArrowRight, Mail } from '@/components/ui/icons';
 
-/** Split hero inside the top bento panel, with the command bar underneath. */
+const letter: Variants = {
+  hidden: { y: '105%' },
+  show: { y: '0%', transition: { duration: 1.1, ease: EASE_EXPO } },
+};
+
+const rise: Variants = {
+  hidden: { opacity: 0, y: 18, filter: 'blur(6px)' },
+  show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: { duration: 0.9, ease: EASE_EXPO } },
+};
+
+/**
+ * Editorial hero after the reference: the name set huge, white over crimson,
+ * with the portrait standing on the fold and overlapping the second line.
+ */
 export function Hero() {
+  const ref = useRef<HTMLElement>(null);
+  const reduced = useReducedMotion();
+  // Hold the entrance until the intro curtain has lifted
+  const ready = useIntroDone();
+
+  const { scrollYProgress } = useScroll({ target: ref, offset: ['start start', 'end start'] });
+  // The two lines drift apart and the portrait sinks as you scroll away.
+  const xTop = useTransform(scrollYProgress, [0, 1], ['0vw', reduced ? '0vw' : '-9vw']);
+  const xBottom = useTransform(scrollYProgress, [0, 1], ['0vw', reduced ? '0vw' : '7vw']);
+  const portraitY = useTransform(scrollYProgress, [0, 1], ['0%', reduced ? '0%' : '12%']);
+  const fade = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+
+  const lines = [
+    {
+      word: site.firstName.toUpperCase(),
+      x: xTop,
+      className: 'text-fg',
+      // White that cools off to the right, like the reference's "THINK"
+      wrap: '[mask-image:linear-gradient(90deg,#000_35%,rgb(0_0_0/0.5))]',
+    },
+    { word: site.lastName.toUpperCase(), x: xBottom, className: 'text-accent', wrap: 'relative z-20' },
+  ];
+
   return (
-    <section id="top" className="panel sheen relative overflow-hidden">
-      {/* Ambient blue bloom, bottom-left */}
-      <div
+    <section
+      ref={ref}
+      id="top"
+      className="grain relative flex min-h-[100svh] flex-col overflow-hidden pt-24 sm:pt-28 lg:pt-32"
+    >
+      {/* Crimson bloom behind the portrait */}
+      <motion.div
         aria-hidden
-        className="pointer-events-none absolute -bottom-32 -left-24 size-[520px] animate-orb-drift rounded-full blur-[130px]"
-        style={{ background: 'radial-gradient(circle, rgb(79 140 255 / 0.22), transparent 70%)' }}
+        className="pointer-events-none absolute bottom-[-18vmin] right-[8%] hidden size-[80vmin] rounded-full bg-accent/25 blur-[110px] lg:block"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1.6, delay: 0.4 }}
       />
-      <div aria-hidden className="noise pointer-events-none absolute inset-0 opacity-[0.14]" />
 
-      <SectionRail />
+      <motion.div
+        className="container relative z-10 flex flex-1 flex-col"
+        initial="hidden"
+        animate={ready ? 'show' : 'hidden'}
+        variants={{ hidden: {}, show: { transition: { staggerChildren: 0.05, delayChildren: 0.15 } } }}
+      >
+        <motion.p variants={rise} className="eyebrow flex items-center gap-2">
+          <span className="h-px w-6 bg-accent" />
+          AI engineer &amp; founder · {site.location}
+        </motion.p>
 
-      <div className="relative px-6 pb-6 pt-12 sm:px-10 sm:pb-8 sm:pt-16">
-        <motion.div
-          initial="hidden"
-          animate="show"
-          variants={stagger(0.09, 0.1)}
-          className="grid items-center gap-10 lg:grid-cols-[1fr_1.05fr] lg:gap-12"
-        >
-          {/* ------------- Copy ------------- */}
-          <div>
+        <h1 className="mt-5 font-display text-[clamp(4.5rem,25vw,8rem)] font-bold leading-[0.84] tracking-[-0.045em] sm:text-mega">
+          <span className="sr-only">
+            {site.name}, {site.role.toLowerCase()} in {site.location}
+          </span>
+          {lines.map((line) => (
             <motion.span
-              variants={fadeUp}
-              className="inline-flex items-center gap-2 rounded-full border border-fg/[0.08] bg-fg/[0.04] py-1.5 pl-2.5 pr-3.5 text-[12px] text-fg2"
+              key={line.word}
+              aria-hidden
+              style={{ x: line.x }}
+              className={`block will-change-transform ${line.wrap}`}
             >
-              <span className="size-1.5 rounded-full bg-accent" />
-              {site.badge}
+              {/* pr/-mr: negative tracking shrinks the box past the last glyph's ink */}
+              <span className="-my-[0.06em] -mr-[0.1em] inline-block overflow-hidden py-[0.06em] pr-[0.1em]">
+                {line.word.split('').map((ch, i) => (
+                  <motion.span
+                    key={i}
+                    variants={reduced ? rise : letter}
+                    className={`inline-block ${line.className}`}
+                  >
+                    {ch}
+                  </motion.span>
+                ))}
+              </span>
             </motion.span>
+          ))}
+        </h1>
 
-            <motion.h1
-              variants={fadeUp}
-              className="mt-6 text-[2.75rem] font-bold leading-[1.05] tracking-tightest sm:text-6xl"
-            >
-              Hi, I&apos;m <span className="text-accent-gradient">Kush</span>
-              <br />
-              Ahuja
-            </motion.h1>
-
-            <motion.p
-              variants={fadeUp}
-              className="mt-5 max-w-md text-pretty text-[15px] leading-relaxed text-fg2"
-            >
-              {site.headline}
-            </motion.p>
-
-            <motion.div variants={fadeUp} className="mt-8 flex flex-wrap items-center gap-3">
-              <Magnetic strength={9}>
-                <Button asChild variant="solid">
-                  <a href="#projects">
-                    View Projects
-                    <ArrowUpRight />
-                  </a>
-                </Button>
-              </Magnetic>
-              <Magnetic strength={9}>
-                <Button asChild variant="tile">
-                  <a href={site.resume} download>
-                    Download Resume
-                    <Download />
-                  </a>
-                </Button>
-              </Magnetic>
-            </motion.div>
-
-            <motion.ul variants={fadeUp} className="mt-7 flex items-center gap-2.5">
-              {socialLinks.map(({ label, href, icon: Icon }) => (
-                <li key={label}>
-                  <Magnetic strength={6}>
-                    <a
-                      href={href}
-                      target={href.startsWith('http') ? '_blank' : undefined}
-                      rel="noopener noreferrer"
-                      aria-label={label}
-                      className="tile flex size-10 items-center justify-center text-fg2 transition-all duration-500 ease-premium hover:border-accent/35 hover:bg-accent/[0.08] hover:text-fg"
-                    >
-                      <Icon className="size-[17px]" />
-                    </a>
-                  </Magnetic>
-                </li>
-              ))}
-            </motion.ul>
-          </div>
-
-          {/* ------------- Profile card ------------- */}
-          <div className="lg:pl-4">
-            <ProfileCard />
-          </div>
-        </motion.div>
-
-        {/* Command bar */}
+        {/* Portrait: in flow on phones, standing on the fold on desktop */}
         <motion.div
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.6, ease: [0.22, 1, 0.36, 1] }}
-          className="mt-12"
+          style={{ y: portraitY }}
+          className="pointer-events-none relative -mt-10 h-[52svh] w-full sm:-mt-16 lg:absolute lg:bottom-0 lg:right-[2%] lg:mt-0 lg:h-[min(86svh,800px)] lg:w-auto lg:aspect-[1000/1379]"
         >
-          <CommandBar />
+          {/* Phone/tablet bloom sits inside this box so the fade below covers it cleanly */}
+          <div
+            aria-hidden
+            className="absolute left-1/2 top-[20%] size-[70vmin] -translate-x-1/2 rounded-full bg-accent/25 blur-[90px] lg:hidden"
+          />
+          <motion.div
+            className="relative h-full w-full"
+            initial={reduced ? { opacity: 0 } : { opacity: 0, y: 70, scale: 0.97 }}
+            animate={ready ? { opacity: 1, y: 0, scale: 1 } : undefined}
+            transition={{ duration: 1.4, ease: EASE_EXPO, delay: 0.35 }}
+          >
+            <Image
+              src="/kush/hero-cutout.webp"
+              alt="Portrait of Kush Ahuja"
+              fill
+              priority
+              sizes="(min-width: 1024px) 580px, 90vw"
+              className="object-contain object-bottom drop-shadow-[0_30px_60px_rgb(0_0_0/0.5)]"
+            />
+          </motion.div>
+          {/* Fade the bottom of the photo into the page on phones */}
+          {/* Negative inset reaches past the container gutters so no seam shows */}
+          <div className="absolute -inset-x-5 bottom-0 h-3/5 bg-gradient-to-t from-bg via-bg/80 to-transparent sm:-inset-x-8 lg:hidden" />
         </motion.div>
-      </div>
+
+        <motion.div
+          style={{ opacity: fade }}
+          className="relative z-20 -mt-24 pb-10 sm:-mt-28 lg:mt-10 lg:max-w-[440px] lg:pb-16"
+        >
+          <motion.p variants={rise} className="text-[19px] leading-relaxed text-fg2 sm:text-xl">
+            {site.headline}
+          </motion.p>
+          <motion.p variants={rise} className="mt-3 text-[14px] text-fg3">
+            CTO at BuildYour.Company · Founder of agents-hub
+          </motion.p>
+          <motion.div variants={rise} className="mt-7 flex flex-wrap gap-3">
+            <a href={`mailto:${site.email}`} className="btn-primary">
+              <Mail width={18} height={18} />
+              Email me
+            </a>
+            <a href="#work" className="btn-ghost group">
+              See my work
+              <ArrowRight
+                width={17}
+                height={17}
+                className="transition-transform duration-300 ease-out-quart group-hover:translate-x-0.5"
+              />
+            </a>
+          </motion.div>
+        </motion.div>
+      </motion.div>
     </section>
   );
 }

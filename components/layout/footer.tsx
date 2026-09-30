@@ -1,56 +1,84 @@
-'use client';
+import Link from 'next/link';
+import { navLinks, site, socials } from '@/data/site';
+import { CycleWord } from '@/components/ui/cycle-word';
+import { Reveal } from '@/components/ui/reveal';
+import { ArrowUpRight } from '@/components/ui/icons';
+import { Wordmark } from '@/components/layout/wordmark';
 
-import { ArrowUp, Heart } from 'lucide-react';
-import { site, socialLinks } from '@/data/site';
-import { Magnetic } from '@/components/ui/magnetic';
-
+/** Contact block + site footer, on every page. */
 export function Footer() {
   return (
-    <footer className="panel sheen flex flex-col items-center gap-4 px-5 py-4 md:flex-row md:justify-between">
-      {/* Left */}
-      <div className="flex items-center gap-3">
-        <span className="font-display text-[15px] font-bold tracking-tight">
-          <span className="text-fg">K</span>
-          <span className="text-accent">A</span>
-        </span>
-        <span className="text-[12px] text-fg3">
-          © {new Date().getFullYear()} {site.name}. All rights reserved.
-        </span>
+    <footer id="contact" className="relative overflow-hidden border-t border-line pt-24 sm:pt-32">
+      <div className="container">
+        <Reveal>
+          <p className="eyebrow">Contact</p>
+          <h2 className="mt-5 max-w-[16ch] text-huge font-bold">
+            Let&apos;s{' '}
+            <CycleWord
+              words={['build', 'ship', 'design', 'launch']}
+              className="font-serif font-normal italic tracking-[-0.02em] text-accent"
+            />
+            <br />
+            something that works.
+          </h2>
+        </Reveal>
+
+        <Reveal delay={0.1} className="mt-14 grid gap-10 border-b border-line pb-14 sm:grid-cols-3">
+          <div>
+            <p className="eyebrow">Email</p>
+            <a
+              href={`mailto:${site.email}`}
+              className="group mt-3 inline-flex items-center gap-2 text-lg text-fg transition-colors hover:text-accent-text"
+            >
+              {site.email}
+              <ArrowUpRight
+                width={18}
+                height={18}
+                className="transition-transform duration-300 ease-out-quart group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+              />
+            </a>
+          </div>
+          <div>
+            <p className="eyebrow">Based in</p>
+            <p className="mt-3 text-lg">{site.location}</p>
+            <p className="text-sm text-fg3">IST, UTC+5:30</p>
+          </div>
+          <div>
+            <p className="eyebrow">Elsewhere</p>
+            <ul className="mt-3 flex flex-wrap gap-x-5 gap-y-2">
+              {socials.map((s) => (
+                <li key={s.label}>
+                  <a
+                    href={s.href}
+                    target="_blank"
+                    rel="noopener noreferrer me"
+                    className="text-lg text-fg2 transition-colors hover:text-fg"
+                  >
+                    {s.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Reveal>
+
+        <div className="flex flex-col gap-4 py-8 text-sm text-fg3 sm:flex-row sm:items-center sm:justify-between">
+          <ul className="flex flex-wrap gap-x-6 gap-y-2">
+            {navLinks.map((l) => (
+              <li key={l.href}>
+                <Link href={l.href} className="transition-colors hover:text-fg">
+                  {l.label}
+                </Link>
+              </li>
+            ))}
+          </ul>
+          <p>
+            © {new Date().getFullYear()} {site.name}. {site.availability}.
+          </p>
+        </div>
       </div>
 
-      {/* Middle */}
-      <p className="flex items-center gap-1.5 text-[12px] text-fg3">
-        Built with
-        <Heart className="size-3.5 fill-danger text-danger" aria-label="love" />
-        using Next.js &amp; Tailwind CSS
-      </p>
-
-      {/* Right */}
-      <div className="flex items-center gap-1.5">
-        {socialLinks.map(({ label, href, icon: Icon }) => (
-          <a
-            key={label}
-            href={href}
-            target={href.startsWith('http') ? '_blank' : undefined}
-            rel="noopener noreferrer"
-            aria-label={label}
-            className="flex size-8 items-center justify-center rounded-lg text-fg3 transition-all duration-500 ease-premium hover:bg-fg/[0.06] hover:text-fg"
-          >
-            <Icon className="size-4" />
-          </a>
-        ))}
-
-        <Magnetic strength={6}>
-          <button
-            type="button"
-            onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-            aria-label="Back to top"
-            className="ml-1 flex size-8 items-center justify-center rounded-lg border border-fg/[0.08] bg-fg/[0.04] text-fg2 transition-all duration-500 ease-premium hover:border-accent/40 hover:text-accent"
-          >
-            <ArrowUp className="size-4" />
-          </button>
-        </Magnetic>
-      </div>
+      <Wordmark text="KUSH AHUJA" />
     </footer>
   );
 }

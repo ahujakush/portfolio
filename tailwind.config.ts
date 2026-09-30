@@ -2,14 +2,15 @@ import type { Config } from 'tailwindcss';
 import animate from 'tailwindcss-animate';
 
 /**
- * Colours are declared as raw RGB channels in app/globals.css, which lets
- * Tailwind's `<alpha-value>` slot work (`bg-accent/10`, `text-fg2/60`, …)
- * while still allowing the whole palette to be swapped for light mode.
+ * Colours are raw RGB channels in app/globals.css so Tailwind's opacity
+ * modifiers still work (`bg-accent/10`, `text-fg/60`, …).
+ *
+ * Palette taken from ruchitdesigns.framer.website: a warm near-black ground,
+ * soft white type, two greys, and one crimson that means "look here".
  */
 const channel = (name: string) => `rgb(var(--${name}) / <alpha-value>)`;
 
 const config: Config = {
-  darkMode: ['class'],
   content: [
     './app/**/*.{ts,tsx}',
     './components/**/*.{ts,tsx}',
@@ -19,74 +20,68 @@ const config: Config = {
   theme: {
     container: {
       center: true,
-      padding: { DEFAULT: '1rem', lg: '1.5rem' },
-      screens: { '2xl': '1120px' },
+      padding: { DEFAULT: '1.25rem', sm: '2rem' },
+      screens: { '2xl': '1200px' },
     },
     extend: {
       colors: {
-        bg: channel('bg'), //        #09090B
-        surface: channel('surface'), // #111113
-        card: channel('card'), //    #18181B
-        divider: channel('divider'), // #27272A
+        bg: channel('bg'), //             #141316
+        surface: channel('surface'), //   #1C1B1F
+        raised: channel('raised'), //     #242328
+        line: channel('line'), //         #2B2A2F
 
-        fg: channel('fg'), //        #FAFAFA  primary text
-        fg2: channel('fg2'), //      #A1A1AA  secondary text
-        fg3: channel('fg3'), //      #71717A  muted text
+        fg: channel('fg'), //             #F7F7F7
+        fg2: channel('fg2'), //           #B8B8B8
+        fg3: channel('fg3'), //           #828282
 
         accent: {
-          DEFAULT: channel('accent'), //  #4F8CFF
-          hover: channel('accent-hover'), // #6EA8FF
+          DEFAULT: channel('accent'), //  #EA0044  fills, large type
+          text: channel('accent-text'), // #FF3D6E  small text on dark (5.4:1)
+          deep: channel('accent-deep'), // #B80036  pressed / shadows
         },
-        success: channel('success'), // #22C55E
-        warning: channel('warning'), // #F59E0B
-        danger: channel('danger'), //   #EF4444
-        info: channel('info'), //       #38BDF8
       },
       fontFamily: {
-        sans: ['var(--font-inter)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
-        display: ['var(--font-space-grotesk)', 'var(--font-inter)', 'sans-serif'],
-        mono: ['var(--font-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+        sans: ['var(--font-geist)', 'ui-sans-serif', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)', 'var(--font-geist)', 'sans-serif'],
+        garamond: ['var(--font-garamond)', 'Georgia', 'serif'],
+        serif: ['var(--font-serif)', 'ui-serif', 'Georgia', 'serif'],
+        mono: ['var(--font-geist-mono)', 'ui-monospace', 'SFMono-Regular', 'Menlo', 'monospace'],
+      },
+      fontSize: {
+        // Fluid display sizes: clamp(min, preferred, max)
+        // Capped by height too, so the hero buttons stay above the fold on short laptop screens
+        mega: ['clamp(4.5rem, min(17vw, 25svh), 15.5rem)', { lineHeight: '0.84', letterSpacing: '-0.05em' }],
+        huge: ['clamp(2.75rem, 7.2vw, 6.25rem)', { lineHeight: '0.95', letterSpacing: '-0.045em' }],
+        big: ['clamp(2.3rem, 5vw, 4.1rem)', { lineHeight: '0.98', letterSpacing: '-0.045em' }],
+      },
+      fontWeight: {
+        // Bricolage Grotesque is variable: 750 is the agents-hub h1 weight
+        bold: '750',
+        extrabold: '800',
       },
       borderRadius: {
-        panel: '20px',
-        card: '14px',
+        card: '20px',
+        tile: '14px',
       },
-      letterSpacing: {
-        tightest: '-0.04em',
-      },
-      boxShadow: {
-        panel: '0 1px 0 0 rgb(255 255 255 / 0.04) inset, 0 24px 70px -30px rgb(0 0 0 / 0.85)',
-        lift: '0 26px 70px -28px rgb(0 0 0 / 0.9), 0 0 0 1px rgb(79 140 255 / 0.18)',
-        glow: '0 0 44px -6px rgb(79 140 255 / 0.35)',
+      transitionTimingFunction: {
+        // Named per design-engineering/easing-curves
+        'out-quart': 'cubic-bezier(0.25, 1, 0.5, 1)',
+        'out-expo': 'cubic-bezier(0.16, 1, 0.3, 1)',
+        'in-out': 'cubic-bezier(0.65, 0, 0.35, 1)',
       },
       keyframes: {
-        'orb-drift': {
-          '0%, 100%': { transform: 'translate3d(0,0,0) scale(1)' },
-          '50%': { transform: 'translate3d(40px,-30px,0) scale(1.1)' },
-        },
-        'ring-spin': { to: { transform: 'rotate(360deg)' } },
-        'caret-blink': {
-          '0%, 70%, 100%': { opacity: '1' },
-          '20%, 50%': { opacity: '0' },
-        },
-        'pulse-ring': {
-          '0%': { transform: 'scale(0.9)', opacity: '0.8' },
-          '100%': { transform: 'scale(2.1)', opacity: '0' },
-        },
         marquee: {
-          from: { transform: 'translateX(0)' },
-          to: { transform: 'translateX(-50%)' },
+          from: { transform: 'translate3d(0,0,0)' },
+          to: { transform: 'translate3d(-50%,0,0)' },
+        },
+        'pulse-dot': {
+          '0%': { transform: 'scale(1)', opacity: '0.7' },
+          '100%': { transform: 'scale(2.6)', opacity: '0' },
         },
       },
       animation: {
-        'orb-drift': 'orb-drift 24s ease-in-out infinite',
-        'ring-spin': 'ring-spin 14s linear infinite',
-        'caret-blink': 'caret-blink 1.2s step-end infinite',
-        'pulse-ring': 'pulse-ring 2.4s cubic-bezier(0.24,0.6,0.36,1) infinite',
-        marquee: 'marquee 32s linear infinite',
-      },
-      transitionTimingFunction: {
-        premium: 'cubic-bezier(0.22, 1, 0.36, 1)',
+        marquee: 'marquee 38s linear infinite',
+        'pulse-dot': 'pulse-dot 2s cubic-bezier(0.25, 1, 0.5, 1) infinite',
       },
     },
   },

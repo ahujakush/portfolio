@@ -1,46 +1,28 @@
 import type { Transition, Variants } from 'framer-motion';
 
 /**
- * Shared motion language.
- * Every transition sits in the 0.5–0.8s range with a single easing curve so
- * the whole site feels like one object rather than a pile of components.
+ * Shared motion language (design-engineering: easing-curves, duration-table).
+ * Three curves, used on purpose:
+ *   expo  — entrances, the element arrives fast and settles
+ *   quart — hovers, fades, small state changes
+ *   inOut — things travelling between two states
  */
+export const EASE_EXPO = [0.16, 1, 0.3, 1] as const;
+export const EASE_QUART = [0.25, 1, 0.5, 1] as const;
+export const EASE_IN_OUT = [0.65, 0, 0.35, 1] as const;
 
-export const EASE = [0.22, 1, 0.36, 1] as const;
+export const enter: Transition = { duration: 0.9, ease: EASE_EXPO };
+export const quick: Transition = { duration: 0.2, ease: EASE_QUART };
 
-export const transition: Transition = { duration: 0.65, ease: EASE };
-export const transitionSlow: Transition = { duration: 0.8, ease: EASE };
-export const spring: Transition = { type: 'spring', stiffness: 220, damping: 26, mass: 0.7 };
-
-/** Fade + rise. The default entrance for almost everything. */
+/** Rise + un-blur. The default entrance (transitions.dev cross-blur). */
 export const fadeUp: Variants = {
-  hidden: { opacity: 0, y: 24 },
-  show: { opacity: 1, y: 0, transition },
-};
-
-export const fadeDown: Variants = {
-  hidden: { opacity: 0, y: -18 },
-  show: { opacity: 1, y: 0, transition },
+  hidden: { opacity: 0, y: 22, filter: 'blur(6px)' },
+  show: { opacity: 1, y: 0, filter: 'blur(0px)', transition: enter },
 };
 
 export const fadeIn: Variants = {
   hidden: { opacity: 0 },
-  show: { opacity: 1, transition: transitionSlow },
-};
-
-export const scaleIn: Variants = {
-  hidden: { opacity: 0, scale: 0.96 },
-  show: { opacity: 1, scale: 1, transition },
-};
-
-export const slideInLeft: Variants = {
-  hidden: { opacity: 0, x: -28 },
-  show: { opacity: 1, x: 0, transition },
-};
-
-export const slideInRight: Variants = {
-  hidden: { opacity: 0, x: 28 },
-  show: { opacity: 1, x: 0, transition },
+  show: { opacity: 1, transition: { duration: 0.6, ease: EASE_QUART } },
 };
 
 /** Parent wrapper that staggers its children. */
@@ -49,5 +31,8 @@ export const stagger = (staggerChildren = 0.08, delayChildren = 0): Variants => 
   show: { transition: { staggerChildren, delayChildren } },
 });
 
-/** Viewport config used by every scroll-triggered section. */
-export const viewportOnce = { once: true, amount: 0.2 } as const;
+/**
+ * Viewport config for scroll reveals. `amount` is tiny on purpose: tall
+ * sections never reach a big threshold and would sit invisible.
+ */
+export const viewportOnce = { once: true, amount: 0.01, margin: '0px 0px -12% 0px' } as const;

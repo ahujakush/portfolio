@@ -12,7 +12,7 @@ const nextConfig: NextConfig = {
 
   // Slightly smaller client bundles for the two big icon/motion libs.
   experimental: {
-    optimizePackageImports: ['lucide-react', 'framer-motion'],
+    optimizePackageImports: ['framer-motion'],
   },
 
   async headers() {

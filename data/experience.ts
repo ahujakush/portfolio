@@ -1,49 +1,44 @@
-import type { Experience } from '@/types';
+import type { EducationItem, Experience } from '@/types';
 
 export const experiences: Experience[] = [
   {
-    company: 'BYC',
-    short: 'BYC',
-    role: 'CTO & Co-Founder',
-    duration: 'Jan 2025 — Present',
+    company: 'agents-hub',
+    role: 'Founder',
+    period: '2026 — Now',
     current: true,
-    tone: 'accent',
-    summary:
-      'Leading engineering on an AI platform for company building and hiring — architecture, agents and infrastructure.',
-    tags: ['AI', 'Next.js', 'TypeScript', 'PostgreSQL', 'LangGraph'],
+    summary: 'AI agents in Telegram and a mobile app, working inside Gmail, Calendar, Tasks and Drive.',
+  },
+  {
+    company: 'BuildYour.Company',
+    role: 'CTO & Co-founder',
+    period: '2025 — Now',
+    current: true,
+    summary: 'Architecture, agent workflows and infrastructure for an AI startup diagnosis platform and Kairo.',
   },
   {
     company: 'Gold Quotient LLP',
-    short: 'GQ',
     role: 'AI Intern',
-    duration: 'Jun 2025 — Dec 2025',
-    tone: 'info',
-    summary:
-      'Built and benchmarked production LLM features, and shipped internal tooling that cut manual review time.',
-    tags: ['Python', 'FastAPI', 'OpenAI', 'LangChain', 'Pandas'],
+    period: 'Jun — Dec 2025',
+    summary: 'Built and benchmarked production LLM features and internal tools that cut manual review time.',
   },
   {
     company: 'TechnGlobal Pvt. Ltd.',
-    short: 'TG',
     role: 'Software Intern',
-    duration: 'Jan 2024 — Jul 2024',
-    tone: 'success',
-    summary:
-      'Contributed backend services and bug fixes to live products alongside the engineering team.',
-    tags: ['Node.js', 'JavaScript', 'REST APIs', 'Git'],
+    period: 'Jan — Jul 2024',
+    summary: 'Backend services and fixes on live products with the engineering team.',
   },
 ];
 
-export const education = [
+export const education: EducationItem[] = [
   {
     school: 'SGT University',
-    qualification: 'B.Tech — CSE (AI & ML)',
+    qualification: 'B.Tech, CSE (AI & ML)',
     period: '2023 — 2027',
-    detail: 'Currently in 3rd year',
+    detail: 'Third year',
   },
   {
     school: 'Jaspal Kaur Public School',
-    qualification: 'Senior Secondary — Science',
+    qualification: 'Senior Secondary, Science',
     period: 'Until 2023',
   },
 ];
