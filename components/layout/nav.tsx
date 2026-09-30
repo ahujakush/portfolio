@@ -59,7 +59,7 @@ export function Nav() {
           <div className="flex h-14 items-center gap-3 pl-2 pr-1.5">
             <Link href="/" className="group flex items-center gap-2.5 rounded-full pr-2" aria-label="Kush Ahuja, home">
               <span className="relative size-10 overflow-hidden rounded-full ring-1 ring-fg/10">
-                <Image src="/kush/avatar.jpg" alt="" fill sizes="40px" className="object-cover" priority />
+                <Image src="/kush/avatar.jpg" alt="Kush Ahuja" fill sizes="40px" className="object-cover" priority />
               </span>
               <span className="font-display text-[15px] font-semibold tracking-[-0.01em]">{site.name}</span>
             </Link>

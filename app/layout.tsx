@@ -32,7 +32,7 @@ const title = `${site.name} · AI Engineer building AI agents (agents-hub)`;
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
   title: { default: title, template: `%s · ${site.name}` },
-  description: `${site.oneLiner} ${site.headline}`,
+  description: site.oneLiner,
   keywords: [
     'Kush Ahuja',
     'AI engineer',

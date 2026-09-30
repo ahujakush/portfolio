@@ -481,6 +481,27 @@ export const tryIt: Record<string, { href: string; label: string; text: string }
   'claude-quality-documents-on-an-azure-key': { href: `${AGENTS_HUB}/ai-document-generator`, label: 'AI document generator', text: 'The Docs agent from this post makes and edits real files in Telegram.' },
 };
 
+/**
+ * Search-result descriptions, under 160 characters (Google and Bing cut longer ones; Bing flags them as errors).
+ * The longer `description` stays as the lede on the post page.
+ */
+export const metaDescription: Record<string, string> = {
+  'why-my-ai-team-lives-in-telegram': 'Why agents-hub moved its AI agents from Google Chat to Telegram, why one hub bot reads every message, and why the server has zero npm dependencies.',
+  'is-the-user-done-typing': 'People send messages in pieces. How the agents-hub AI agents wait for the whole thought in Telegram, and the six rules that made it work.',
+  'three-layers-of-memory': 'Three layers of memory for a multi-agent chat: routed messages, facts sent every time, and search on demand. The design, the mistake and the savings.',
+  'long-jobs-without-a-frozen-chat': 'A document can take four minutes. How agents-hub keeps the chat free, shows one live status message, and restarts a job when you change your mind halfway.',
+  'ai-writes-the-email-you-send-it': 'Agents that act in real Gmail and Drive accounts need hard limits. The tap-to-send button, prompt injection, and how customer data is stored in agents-hub.',
+  'claude-quality-documents-on-an-azure-key': 'Making the Docs agent produce PDFs as good as Claude\'s with only an Azure OpenAI key: a sandbox, a playbook, style kits and real photos.',
+  'marketing-motion-vs-product-motion': 'The agents-hub landing page moves a lot and the dashboard barely moves. Why they share tokens but not animation, and how I decide what moves.',
+  'what-is-an-ai-agent': 'What is an AI agent? A plain-English definition, how agents differ from chatbots, the four parts every agent needs, and lessons from building agents-hub.',
+  'ai-personal-assistant-agents-hub-vs-poke-vs-grok': 'AI personal assistants compared: chat assistants like Grok, text assistants like Poke, and agent teams like agents-hub that act in Gmail and Calendar.',
+  'what-is-buildyour-company': 'BuildYour.Company diagnoses why an early startup is stuck with a free AI discovery call, then builds a 30-day Startup Map and a WhatsApp AI coach.',
+  'ai-discovery-call-startup-diagnosis': 'How the BuildYour.Company AI discovery call works: a live voice chat with Kairo that becomes a Startup Diagnosis with root causes and a clarity score.',
+  'startup-map-30-day-plan': 'How BuildYour.Company turns an AI startup diagnosis into a 30-day, day-by-day plan with proof of work, a kanban board and a calendar.',
+  'whatsapp-ai-coach-kairo': 'Kairo sends every BuildYour.Company founder an 8 AM WhatsApp brief with today\'s tasks and an AI voice note, and answers questions on every page.',
+  'make-your-startup-site-readable-by-ai': 'How we made BuildYour.Company readable and citable by ChatGPT, Perplexity and Google: llms.txt, an OpenAPI spec, focused SEO pages and structured data.',
+};
+
 /** Posts in reading order: agents-hub series first, then BYC. */
 export function orderedPosts() {
   const rank: Record<Series, number> = { 'agents-hub': 0, byc: 1 };

@@ -9,7 +9,7 @@ import { Reveal, Stagger, StaggerItem } from '@/components/ui/reveal';
 export const metadata: Metadata = {
   title: 'Blog: building AI agents and AI startups in public',
   description:
-    'Kush Ahuja writes about building AI agents (agents-hub) and an AI startup diagnosis platform (BuildYour.Company): architecture, memory, safety, voice AI, WhatsApp automation and AI SEO, with real numbers.',
+    'Kush Ahuja writes about building AI agents (agents-hub) and an AI startup platform (BuildYour.Company) in public: architecture, memory, safety and AI SEO.',
   alternates: { canonical: '/blog' },
 };
 
