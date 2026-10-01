@@ -15,7 +15,7 @@
 
     --fg: 247 247 247; /*         #F7F7F7  primary text              */
     --fg2: 242 242 242; /*        #F2F2F2  paragraph text: white     */
-    --fg3: 130 130 130; /*        #828282  labels, meta              */
+    --fg3: 138 138 138; /*        #8A8A8A  labels, meta (4.9:1 on surface) */
 
     --accent: 234 0 68; /*        #EA0044  fills + display type      */
     --accent-text: 255 61 110; /* #FF3D6E  small text on dark, 5.4:1  */

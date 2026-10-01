@@ -116,7 +116,7 @@ export default async function PostPage({ params }: Params) {
           <p className="mt-6 text-[20px] leading-relaxed text-fg">{post.description}</p>
           <div className="mt-8 flex items-center gap-3 border-y border-line py-5">
             <span className="relative size-10 overflow-hidden rounded-full ring-1 ring-fg/10">
-              <Image src="/kush/avatar.jpg" alt="Kush Ahuja" fill sizes="40px" className="object-cover" />
+              <Image src="/kush/avatar.jpg" alt="Photo of Kush Ahuja" fill sizes="40px" className="object-cover" />
             </span>
             <div className="text-[14px] leading-tight">
               <p className="font-medium">{site.name}</p>
@@ -162,7 +162,7 @@ export default async function PostPage({ params }: Params) {
           <p className="eyebrow">Written by</p>
           <div className="mt-4 flex items-start gap-4">
             <span className="relative size-14 shrink-0 overflow-hidden rounded-full ring-1 ring-fg/10">
-              <Image src="/kush/avatar.jpg" alt="Kush Ahuja" fill sizes="56px" className="object-cover" />
+              <Image src="/kush/avatar.jpg" alt="Photo of Kush Ahuja" fill sizes="56px" className="object-cover" />
             </span>
             <div>
               <p className="font-display text-xl font-semibold">{site.name}</p>

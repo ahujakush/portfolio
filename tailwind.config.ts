@@ -32,7 +32,7 @@ const config: Config = {
 
         fg: channel('fg'), //             #F7F7F7
         fg2: channel('fg2'), //           #B8B8B8
-        fg3: channel('fg3'), //           #828282
+        fg3: channel('fg3'), //           #8A8A8A
 
         accent: {
           DEFAULT: channel('accent'), //  #EA0044  fills, large type
