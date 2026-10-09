@@ -3,3 +3,4 @@ export * from './projects';
 export * from './experience';
 export * from './services';
 export * from './posts';
+export * from './notes';

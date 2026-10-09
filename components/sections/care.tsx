@@ -293,9 +293,9 @@ function TypingDemo({ active }: { active: boolean }) {
   return (
     <div className="flex h-[136px] flex-col justify-end gap-1.5">
       <AnimatePresence initial={false}>
-        {s >= 1 && <Bubble me key="a">add to my todo list</Bubble>}
-        {s >= 2 && <Bubble me key="b">gym tomorrow</Bubble>}
-        {s >= 3 && <Bubble me key="c">at 7 am</Bubble>}
+        {s >= 1 && <Bubble me key="a">remind me to</Bubble>}
+        {s >= 2 && <Bubble me key="b">send the invoice</Bubble>}
+        {s >= 3 && <Bubble me key="c">on Friday morning</Bubble>}
         {s === 4 && (
           <motion.div key="wait" {...pop} className="flex items-center gap-2 self-start text-[11.5px] text-fg3">
             <svg viewBox="0 0 20 20" className="size-4 -rotate-90">
@@ -319,7 +319,7 @@ function TypingDemo({ active }: { active: boolean }) {
         {s >= 5 && (
           <Bubble key="r">
             <span className="inline-flex items-center gap-1">
-              <Check width={13} height={13} className="text-accent-text" /> Added: Gym, tomorrow 7:00
+              <Check width={13} height={13} className="text-accent-text" /> Reminder set: Send invoice, Fri 9:00
             </span>
           </Bubble>
         )}
@@ -335,10 +335,10 @@ function SendDemo({ active }: { active: boolean }) {
     <div className="relative h-[136px] text-[12px]">
       <div className="rounded-xl border border-fg/[0.08] bg-surface p-3">
         <p className="text-fg3">
-          To <span className="text-fg">priya@acme.com</span>
+          Refund request · <span className="text-fg">Order #4821</span>
         </p>
-        <p className="mt-1 font-medium text-fg">Q3 deck is ready</p>
-        <p className="mt-0.5 line-clamp-1 text-fg2">Want to go through it Friday at 4?</p>
+        <p className="mt-1 font-medium text-fg">$48.00 to the original card</p>
+        <p className="mt-0.5 line-clamp-1 text-fg2">Customer reported a damaged item.</p>
       </div>
       <div className="mt-2.5 flex gap-2">
         <motion.span
@@ -350,15 +350,15 @@ function SendDemo({ active }: { active: boolean }) {
             <motion.span key={sent ? 'sent' : 'send'} {...pop} className="inline-flex items-center gap-1.5">
               {sent ? (
                 <>
-                  <Check width={13} height={13} className="text-accent-text" /> Sent by you
+                  <Check width={13} height={13} className="text-accent-text" /> Approved by you
                 </>
               ) : (
-                <>📤 Send</>
+                <>Approve</>
               )}
             </motion.span>
           </AnimatePresence>
         </motion.span>
-        <span className="inline-flex h-8 items-center rounded-full border border-fg/10 px-3.5 text-fg2">Cancel</span>
+        <span className="inline-flex h-8 items-center rounded-full border border-fg/10 px-3.5 text-fg2">Decline</span>
       </div>
       {/* A pretend finger that walks over and taps Send */}
       <motion.span
@@ -377,12 +377,12 @@ function SendDemo({ active }: { active: boolean }) {
 
 function VaultDemo({ active }: { active: boolean }) {
   const s = useSequence(active, [300, 1300, 2300], 5200);
-  const files = ['compiler-report.pdf', 'Q3-deck.pptx', 'invoice-aug.xlsx'];
+  const files = ['pitch-deck.pdf', 'Q3-roadmap.pptx', 'invoice-aug.xlsx'];
   return (
     <div className="flex h-[136px] flex-col gap-1.5 text-[12px]">
       <div className="flex items-center gap-2 rounded-full bg-surface px-3 py-1.5 text-fg2 ring-1 ring-fg/[0.08]">
         <span className="size-1.5 rounded-full bg-accent" />
-        <span className="truncate">{s >= 1 ? '“send me that compiler report”' : 'Agent Hub Vault'}</span>
+        <span className="truncate">{s >= 1 ? '“find the pitch deck”' : 'Search your files'}</span>
       </div>
       <ul className="space-y-1">
         {files.map((f, i) => (
@@ -398,7 +398,7 @@ function VaultDemo({ active }: { active: boolean }) {
             {f}
             {s >= 3 && i === 0 && (
               <motion.span {...pop} className="inline-flex items-center gap-1 text-[11px] text-accent-text">
-                <Check width={12} height={12} /> sent to chat
+                <Check width={12} height={12} /> found
               </motion.span>
             )}
           </motion.li>

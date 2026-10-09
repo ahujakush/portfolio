@@ -207,13 +207,6 @@ function FeaturedCard({ project, wide }: { project: Project; wide: boolean }) {
             )}
           </div>
           <p className="mt-3 max-w-[52ch] text-[15px] leading-relaxed text-fg2">{project.description}</p>
-          <ul className="mt-4 flex flex-wrap gap-1.5">
-            {project.stack.map((s) => (
-              <li key={s} className="rounded-full border border-fg/10 px-2.5 py-1 text-[12px] text-fg2">
-                {s}
-              </li>
-            ))}
-          </ul>
         </motion.div>
       </CardLink>
     </motion.article>
@@ -299,11 +292,6 @@ function ProjectIndex({ projects: list }: { projects: Project[] }) {
                             <li className="rounded-full bg-accent/15 px-2.5 py-1 text-[12px] text-accent-text">
                               {statusLabel[p.status]}
                             </li>
-                            {p.stack.map((s) => (
-                              <li key={s} className="rounded-full border border-fg/10 px-2.5 py-1 text-[12px] text-fg2">
-                                {s}
-                              </li>
-                            ))}
                           </ul>
                         </div>
                         {/* On touch screens the preview lives inline */}

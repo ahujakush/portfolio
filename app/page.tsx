@@ -1,8 +1,6 @@
 import { Hero } from '@/components/sections/hero';
-import { Marquee } from '@/components/sections/marquee';
 import { MoreBuilds, Work } from '@/components/sections/work';
 import { Care } from '@/components/sections/care';
-import { Band } from '@/components/sections/band';
 import { Services } from '@/components/sections/services';
 import { About } from '@/components/sections/about';
 import { Writing } from '@/components/sections/writing';
@@ -25,18 +23,9 @@ export default function HomePage() {
   return (
     <>
       <Hero />
-      <Marquee />
       <Work />
-      <Band
-        top={['AI agents', 'Full-stack', 'Mobile apps', 'Backend']}
-        bottom={['Ship', 'Measure', 'Fix', 'Repeat']}
-      />
       <Care />
       <Services />
-      <Band
-        top={['Build in public', 'agents-hub', 'BuildYour.Company']}
-        bottom={['Gurugram', 'India', 'Available for work']}
-      />
       <About />
       <MoreBuilds />
       <Writing />

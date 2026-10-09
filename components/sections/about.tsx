@@ -12,7 +12,7 @@ import { socialIcon } from '@/components/ui/icons';
 
 const bio = [
   'I got into software by breaking things and rebuilding them until they held up. Most of what I know came from shipping: reading docs at 2am, watching real people use what I made, and fixing what they tripped on.',
-  'Today I lead engineering at BuildYour.Company, where we help founders diagnose their startup before they build more of it. On the side I build agents-hub, an AI team that works inside your Gmail, Calendar and Drive, and I write about every decision in public.',
+  'I’m a founder and a CTO, so I own the whole product: the idea, the architecture, the AI behind it, the interface and the deploy. I would rather ship something small that works than present something big that doesn’t, and I write down what I learn so other builders can skip my mistakes.',
   'I study Computer Science with a specialisation in AI & ML at SGT University, in my third year. The degree gives me the theory. The products keep me honest about it.',
 ];
 
@@ -28,8 +28,8 @@ export function About() {
       <div className="container">
         <SplitHeading
           className="text-big font-bold"
-          lines={['Building agents', 'that finish the job.']}
-          accent={['that', 'finish', 'the', 'job.']}
+          lines={['Founder and', 'engineer.']}
+          accent={['engineer.']}
         />
 
         <div className="mt-14 grid gap-12 lg:grid-cols-[minmax(0,420px)_1fr] lg:gap-16">

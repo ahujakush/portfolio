@@ -137,7 +137,7 @@ export function Hero() {
             {site.headline}
           </motion.p>
           <motion.p variants={rise} className="mt-3 text-[14px] text-fg3">
-            CTO at BuildYour.Company · Founder of agents-hub
+            {site.availability}
           </motion.p>
           <motion.div variants={rise} className="mt-7 flex flex-wrap gap-3">
             <a href={`mailto:${site.email}`} className="btn-primary">

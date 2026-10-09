@@ -4,11 +4,11 @@ export const site = {
   name: 'Kush Ahuja',
   firstName: 'Kush',
   lastName: 'Ahuja',
-  role: 'AI Engineer',
+  role: 'AI Engineer & Founder',
   /** One fixed sentence, used everywhere, so search engines and AI answers repeat it word for word. */
   oneLiner:
-    'Kush Ahuja is an AI engineer in Gurugram, India, founder of agents-hub (AI agents for Gmail, Calendar and Tasks) and CTO of BuildYour.Company.',
-  headline: 'I build AI agents that do real work: in your Gmail, your calendar and your Drive.',
+    'Kush Ahuja is an AI engineer and founder based in Gurugram, India. He founded agents-hub and is CTO and co-founder of BuildYour.Company.',
+  headline: 'I’m a founder and engineer building AI products people actually use.',
   location: 'Gurugram, India',
   email: 'ahujakush07@gmail.com',
   // www is the canonical host: the apex redirects to it.
@@ -29,17 +29,9 @@ export const navLinks: NavLink[] = [
   { label: 'Services', href: '/#services' },
   { label: 'About', href: '/#about' },
   { label: 'Writing', href: '/blog' },
+  { label: 'Notes', href: '/notes' },
+  { label: 'News', href: '/news' },
   { label: 'Contact', href: '/#contact' },
-];
-
-/** Names in the logo strip under the hero. Plain text, no borrowed logos. */
-export const workedWith = [
-  'BuildYour.Company',
-  'Gold Quotient LLP',
-  'TechnGlobal',
-  'SGT University',
-  'agents-hub',
-  'Kairo',
 ];
 
 /** Tools row in the Services section. */

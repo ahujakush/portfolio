@@ -27,7 +27,7 @@ const serif = Instrument_Serif({
   style: 'italic',
 });
 
-const title = `${site.name} · AI Engineer building AI agents (agents-hub)`;
+const title = `${site.name} · AI Engineer & Founder in Gurugram, India`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(site.url),
@@ -35,15 +35,13 @@ export const metadata: Metadata = {
   description: site.oneLiner,
   keywords: [
     'Kush Ahuja',
+    'Kush Ahuja AI engineer',
     'AI engineer',
-    'AI agents',
-    'AI agent developer',
-    'personal AI assistant',
-    'AI agents for Gmail',
-    'AI assistant in Telegram',
+    'AI founder',
+    'AI agents developer',
+    'full-stack AI engineer',
     'agents-hub',
     'BuildYour.Company',
-    'AI startup diagnosis',
     'Gurugram',
     'India',
   ],
@@ -97,14 +95,16 @@ const jsonLd = {
       url: site.url,
       image: `${site.url}/kush/portrait.jpg`,
       email: `mailto:${site.email}`,
-      jobTitle: 'AI Engineer',
+      alternateName: ['Kush', 'ahujakush'],
+      jobTitle: 'AI Engineer and Founder',
       description: site.oneLiner,
       worksFor: { '@id': 'https://buildyour.company/#org' },
       founder: { '@id': 'https://agentshub.thekush.codes/#app' },
       alumniOf: { '@type': 'CollegeOrUniversity', name: 'SGT University' },
       address: { '@type': 'PostalAddress', addressLocality: 'Gurugram', addressRegion: 'Haryana', addressCountry: 'IN' },
       nationality: 'Indian',
-      sameAs: [...socials.map((s) => s.href), 'https://agentshub.thekush.codes'],
+      // Only profiles that are this person. Products are linked through worksFor / founder.
+      sameAs: socials.filter((s) => s.icon !== 'mail').map((s) => s.href),
       knowsAbout: [
         'AI agents',
         'Multi-agent systems',

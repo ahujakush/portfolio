@@ -26,27 +26,27 @@ export const services: Service[] = [
 export const faqs: Faq[] = [
   {
     q: 'Who is Kush Ahuja?',
-    a: 'Kush Ahuja is an AI engineer in Gurugram, India. He is the founder of agents-hub, a team of AI agents for Gmail, Calendar and Tasks, CTO and co-founder of BuildYour.Company, and a B.Tech student in CSE (AI & ML) at SGT University.',
+    a: 'Kush Ahuja is an AI engineer and founder based in Gurugram, India. He founded agents-hub, is CTO and co-founder of BuildYour.Company, and is a B.Tech student in CSE (AI & ML) at SGT University. He designs, builds and ships AI products end to end.',
   },
   {
-    q: 'What are AI agents?',
-    a: 'AI agents are programs that use a language model to decide what to do, then act through real tools such as Gmail, a calendar or a file store, and check the result. A chatbot tells you how to book a meeting; an AI agent books it. Kush builds them for agents-hub and BuildYour.Company.',
-  },
-  {
-    q: 'What is agents-hub?',
-    a: 'agents-hub is a team of AI agents you talk to in Telegram or a mobile app. You sign in with Google once, unlock the agents you need (Gmail, Calendar, Tasks, Docs, Maps), and they work inside your own accounts. An email is only sent when you tap Send. It lives at agentshub.thekush.codes.',
-  },
-  {
-    q: 'Is agents-hub an alternative to Poke or Grok?',
-    a: 'It solves a different problem. Chat assistants like Grok answer questions in a chat window. agents-hub runs separate AI agents that act inside your Gmail, Calendar, Tasks and Drive, reply in a Telegram group or app, and are priced per agent in rupees.',
-  },
-  {
-    q: 'What is BuildYour.Company?',
-    a: 'BuildYour.Company is an AI startup diagnosis platform for early founders. A free voice call with Kairo, its AI coach, finds the one thing stopping growth; a paid 30-day Startup Map and a daily WhatsApp brief help the founder fix it. Kush is its CTO and co-founder.',
+    q: 'What can you help me build?',
+    a: 'AI agents that act inside real accounts, full-stack web products, backend and data systems, and mobile apps. I take a product from the first schema to the deploy and keep it working after launch.',
   },
   {
     q: 'Are you available for work?',
-    a: 'Yes, for freelance AI agent builds and full-time roles where I can own an AI product end to end. Email ahujakush07@gmail.com is the fastest way to reach me.',
+    a: 'Yes, for select freelance builds and for full-time roles where I can own an AI product end to end. Email ahujakush07@gmail.com is the fastest way to reach me.',
+  },
+  {
+    q: 'What have you built?',
+    a: 'agents-hub, a team of AI agents that work inside Gmail, Calendar, Tasks and Drive from Telegram or a mobile app. BuildYour.Company, an AI startup diagnosis platform for early founders, and Kairo, its daily go-to-market coach. Smaller builds include a voice assistant, a RAG chatbot and a code studio.',
+  },
+  {
+    q: 'What are AI agents?',
+    a: 'AI agents are programs that use a language model to decide what to do, then act through real tools such as email, a calendar or a file store, and check the result. A chatbot tells you how to book a meeting; an AI agent books it.',
+  },
+  {
+    q: 'Where are you based?',
+    a: 'Gurugram, India (IST, UTC+5:30). You can follow my work on LinkedIn, GitHub, X and Instagram, or read the build-in-public posts on the blog.',
   },
   {
     q: 'What do you usually build with?',

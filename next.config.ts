@@ -15,6 +15,11 @@ const nextConfig: NextConfig = {
     optimizePackageImports: ['framer-motion'],
   },
 
+  // Stable versioned alias: /api/v1/news is /api/news.
+  async rewrites() {
+    return [{ source: '/api/v1/:path*', destination: '/api/:path*' }];
+  },
+
   async headers() {
     return [
       {
