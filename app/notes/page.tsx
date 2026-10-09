@@ -9,7 +9,7 @@ import { ArrowUpRight } from '@/components/ui/icons';
 export const metadata: Metadata = {
   title: 'Notes: short essays on building AI products',
   description: `Short, one-idea notes from ${site.name} on building and shipping AI products: agents, trust, chat UX, documents and startups.`,
-  alternates: { canonical: '/notes' },
+  alternates: { canonical: '/notes', types: { 'application/rss+xml': '/notes/rss.xml' } },
 };
 
 export default function NotesIndex() {

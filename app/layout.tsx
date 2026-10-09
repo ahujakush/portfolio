@@ -61,7 +61,15 @@ export const metadata: Metadata = {
     follow: true,
     googleBot: { index: true, follow: true, 'max-image-preview': 'large' },
   },
-  alternates: { canonical: '/', types: { 'application/rss+xml': '/blog/rss.xml' } },
+  alternates: {
+    canonical: '/',
+    types: {
+      'application/rss+xml': [
+        { url: '/blog/rss.xml', title: 'Blog' },
+        { url: '/notes/rss.xml', title: 'Notes' },
+      ],
+    },
+  },
   // Set these in Vercel once you add the site in Google Search Console / Bing Webmaster Tools
   verification: {
     google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION,
@@ -150,7 +158,7 @@ const jsonLd = {
       name: `${site.name}, AI engineer`,
       isPartOf: { '@id': `${site.url}/#website` },
       mainEntity: { '@id': `${site.url}/#person` },
-      dateModified: '2026-09-30',
+      dateModified: '2026-10-09',
     },
   ],
 };

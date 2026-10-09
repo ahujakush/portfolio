@@ -21,7 +21,7 @@ export const socials: Social[] = [
   { label: 'LinkedIn', handle: 'ahujakush', href: 'https://linkedin.com/in/ahujakush', icon: 'linkedin' },
   { label: 'GitHub', handle: 'ahujakush', href: 'https://github.com/ahujakush', icon: 'github' },
   { label: 'Instagram', handle: 'kush_ahuja_12', href: 'https://www.instagram.com/kush_ahuja_12/', icon: 'instagram' },
-  { label: 'X', handle: 'ahujakush', href: 'https://x.com/ahujakush', icon: 'x' },
+  { label: 'X', handle: 'ahujakush07', href: 'https://x.com/ahujakush07', icon: 'x' },
 ];
 
 export const navLinks: NavLink[] = [
